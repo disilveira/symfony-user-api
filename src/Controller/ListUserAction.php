@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Address;
-use App\Entity\Phone;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
