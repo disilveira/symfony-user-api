@@ -55,13 +55,13 @@ class DoctrineRelationsController extends AbstractController
         /**
          * @var User $user
          */
-        $user = $entityManager->find(User::class, 2);
+        $user = $entityManager->find(User::class, 5);
 
         $telefone = new Phone();
         $telefone->setCodigoArea(31);
         $telefone->setNumero("3531-2900");
         $telefone->setUser($user);
-        // dd($user->getTelefones());
+        //dd($user->getTelefones());
         $entityManager->persist($telefone);
         $entityManager->flush();
         // dd($entityManager->contains($user), $entityManager->contains($telefone));

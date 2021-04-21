@@ -20,12 +20,12 @@ class User
     private int $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Address", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="App\Entity\Address", mappedBy="user", cascade={"all"})
      */
     private $endereco;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Phone", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Phone", mappedBy="user", cascade={"all"})
      */
     private $telefones;
 
@@ -94,7 +94,7 @@ class User
     {
         return $this->createdAt;
     }
-
+    
     public function getEndereco()
     {
         return $this->endereco;
