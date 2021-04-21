@@ -17,6 +17,7 @@ class ListUserAction
     {
 
         $users = $entityManager->getRepository(User::class)->findAll();
+        $rows = count($users);
 
         $response = [];
 
@@ -34,10 +35,13 @@ class ListUserAction
                     'numero' => $user->getEndereco()->getNumero(),
                     'complemtento' => $user->getEndereco()->getComplemento()
                 ],
-                'telefones' => '/user/' . $user->getId() . '/phones'
+                'telefones' => '/users/' . $user->getId() . '/phones'
             ];
         }
 
-        return new JsonResponse($response);
+        return new JsonResponse([
+            'rows' => $rows, 
+            'users' => $response
+        ]);
     }
 }
