@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity()
@@ -25,7 +24,10 @@ class User
     private $endereco;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Phone", mappedBy="user", cascade={"all"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Phone", cascade={"all"})
+     * @ORM\JoinTable(name="users_phone_numbers", 
+     * joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     * )
      */
     private $telefones;
 
@@ -100,17 +102,14 @@ class User
         return $this->endereco;
     }
 
-    public function addTelefone(Phone $telefone)
-    {
-        $this->telefones[] = $telefone;
-    }
-
-    /**
-     * @return Collection|Phone[]
-     */
     public function getTelefones()
     {
         return $this->telefones;
+    }
+
+    public function setTelefones(Phone $telefone)
+    {
+        $this->telefones[] = $telefone;
     }
 
 }

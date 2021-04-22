@@ -24,16 +24,7 @@ class ListUserAction
                 'id' => $user->getId(),
                 'nome' => $user->getNome(),
                 'sobrenome' => $user->getSobrenome(),
-                'email' => $user->getEmail(),
-                'endereco' => [
-                    'estado' => $user->getEndereco()->getEstado(),
-                    'cidade' => $user->getEndereco()->getCidade(),
-                    'bairro' => $user->getEndereco()->getBairro(),
-                    'rua' => $user->getEndereco()->getRua(),
-                    'numero' => $user->getEndereco()->getNumero(),
-                    'complemtento' => $user->getEndereco()->getComplemento()
-                ],
-                'telefones' => '/users/' . $user->getId() . '/phones'
+                'email' => $user->getEmail()
             ];
         }
 

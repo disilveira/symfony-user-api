@@ -28,9 +28,9 @@ class CreateUserPhoneAction
         $phone = new Phone();
         $phone->setCodigoArea($requestBody->codigo_area);
         $phone->setNumero($requestBody->numero);
-        $phone->setUser($user);
-        $entityManager->persist($phone);
+        $user->joinTelefone($phone);
 
+        $entityManager->persist($user);
         $entityManager->flush();
 
         return new JsonResponse([
