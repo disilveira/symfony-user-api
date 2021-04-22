@@ -10,25 +10,35 @@ class CreateUserActionTest extends WebTestCase
     public function test_create_user_post(): void
     {
         $client = static::createClient();
-        $client->request(method: 'POST', uri: '/users',
+        $client->request(
+            method: 'POST',
+            uri: '/users',
             content: json_encode([
                 'nome' => 'Diego',
                 'sobrenome' => "Almeida",
-                'email' => 'diego.almeida@outlook.com',
-                'endereco' => [
-                    'estado' => 'MG',
-                    'cidade' => 'Betim',
-                    'bairro' => 'Ingá',
-                    'rua' => 'Av. Edmeia Mattos',
-                    'numero' => '99-B',
-                    'complemento' => 'Casa'
-                ]
+                'email' => 'diego.almeida@outlook.com'
             ])
         );
 
         $statusCode = $client->getResponse()->getStatusCode();
 
         $this->assertSame(Response::HTTP_CREATED, $statusCode);
+    }
 
+    public function test_create_user_with_invalid_data(): void
+    {
+        $client = static::createClient();
+        $client->request(
+            method: 'POST',
+            uri: '/users',
+            content: json_encode([
+                'sobrenome' => "Almeida",
+                'email' => 'diego.almeida@outlook.com'
+            ])
+        );
+
+        $statusCode = $client->getResponse()->getStatusCode();
+
+        $this->assertSame(Response::HTTP_BAD_REQUEST, $statusCode);
     }
 }

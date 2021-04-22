@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -24,25 +25,25 @@ class User
     private $endereco;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Phone", cascade={"all"})
-     * @ORM\JoinTable(name="users_phone_numbers", 
-     * joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     * )
+     * @ORM\OneToMany(targetEntity="App\Entity\Phone", mappedBy="user", cascade={"all"})
      */
     private $telefones;
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Assert\NotBlank(message="Este valor é obrigatório")
      */
     private string $nome;
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Assert\NotBlank(message="Este valor é obrigatório")
      */
     private string $sobrenome;
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Assert\NotBlank(message="Este valor é obrigatório")
      */
     private string $email;
 
@@ -102,14 +103,19 @@ class User
         return $this->endereco;
     }
 
+    public function setEndereco(Address $endereco)
+    {
+        $this->endereco = $endereco;
+    }
+
+    public function addTelefone(Phone $telefone)
+    {
+        $this->telefones[] = $telefone;
+    }
+
     public function getTelefones()
     {
         return $this->telefones;
-    }
-
-    public function setTelefones(Phone $telefone)
-    {
-        $this->telefones[] = $telefone;
     }
 
 }

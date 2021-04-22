@@ -20,7 +20,11 @@ class GetUserAction
             return new JsonResponse(['error' => 'Usuário não encontrado'], Response::HTTP_NOT_FOUND);
         }
 
-        $response = $serializer->serialize($user, 'json');
+        $response = $serializer->serialize($user, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+             }
+         ]);
 
         return JsonResponse::fromJsonString($response);
     }

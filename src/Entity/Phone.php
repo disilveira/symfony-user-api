@@ -3,9 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\User;
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
@@ -21,7 +19,11 @@ class Phone
      */
     private int $id;
 
-    private $users;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="telefones", cascade={"all"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
 
     /**
      * @ORM\Column(type="integer")
@@ -71,6 +73,17 @@ class Phone
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): void
+    {
+        $user->addTelefone($this);
+        $this->user = $user;
     }
 
 }

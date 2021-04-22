@@ -27,7 +27,6 @@ class UpdateUserAction
         $user->setSobrenome($requestBody->sobrenome);
         $user->setEmail($requestBody->email);
         $entityManager->persist($user);
-
         $entityManager->flush();
 
 
