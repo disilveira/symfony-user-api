@@ -33,6 +33,6 @@ jobs:
       - name: Change Permissions
         run: chmod +x bin/console
       - name: Create database schema
-        run: bin/console doctrine:schema:create
+        run: bin/console doctrine:schema:create --env prod
       - name: Run functional tests
         run: bin/phpunit
