@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 
 /**
@@ -27,11 +28,13 @@ class Phone
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Este valor é obrigatório")
      */
     private int $codigo_area;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\NotBlank(message="Este valor é obrigatório")
      */
     private string $numero;
 

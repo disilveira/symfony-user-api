@@ -20,10 +20,6 @@ class Address
      */
     private int $id;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="endereco")
-     * @ORM\JoinColumn(name="user_id", nullable=false, referencedColumnName="id")
-     */
     private $user;
 
     /**

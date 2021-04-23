@@ -20,7 +20,8 @@ class User
     private int $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Address", mappedBy="user", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Address", cascade={"all"})
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $endereco;
 
@@ -44,6 +45,7 @@ class User
     /**
      * @ORM\Column(type="string", length=150)
      * @Assert\NotBlank(message="Este valor é obrigatório")
+     * @Assert\Email(message="E-mail inválido")
      */
     private string $email;
 

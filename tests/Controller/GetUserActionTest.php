@@ -10,7 +10,7 @@ class GetUserActionTest extends WebTestCase
     public function test_get_user_should_return_200(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/users/4');
+        $client->request('GET', '/users/2');
 
         $statusCode = $client->getResponse()->getStatusCode();
 
