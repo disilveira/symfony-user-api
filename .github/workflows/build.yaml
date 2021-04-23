@@ -7,15 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_DATABASE: symfony-user-api
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -32,6 +23,8 @@ jobs:
           mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -proot -e "SHOW DATABASES"
       - name: Change Permissions
         run: chmod +x bin/console
+      - name: Create database
+        run: bin/console doctrine:database:create --env test
       - name: Create database schema
         run: bin/console doctrine:schema:create --env test
       - name: Run functional tests
