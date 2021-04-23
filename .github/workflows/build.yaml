@@ -30,6 +30,8 @@ jobs:
           mysql --version
           sudo apt-get install -y mysql-client
           mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -proot -e "SHOW DATABASES"
+      - name: Change Permissions
+        run: chmod +x bin/console
       - name: Create database schema
         run: bin/console doctrine:schema:create --env test
       - name: Run functional tests
