@@ -10,7 +10,7 @@ class DeleteUserActionTest extends WebTestCase
     public function test_delete_user(): void
     {
         $client = static::createClient();
-        $client->request('DELETE', '/users/12');
+        $client->request('DELETE', '/users/1');
 
         $statusCode = $client->getResponse()->getStatusCode();
 

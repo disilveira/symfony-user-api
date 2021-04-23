@@ -12,7 +12,7 @@ class UpdateUserActionTest extends WebTestCase
         $client = static::createClient();
         $client->request(
             method: 'PUT',
-            uri: '/users/2',
+            uri: '/users/1',
             content: json_encode([
                 'nome' => 'Diego',
                 'sobrenome' => "Almeida",

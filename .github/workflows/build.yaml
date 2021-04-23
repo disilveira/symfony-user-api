@@ -3,13 +3,21 @@ name: "Build & Tests"
 on:
   push:
     branches:
-      - main # ou o nome do branch que vocês estão utilizando.
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
-      env:
-        DB_USER: root
-        DB_PASSWORD: root
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: symfoni-user-api
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -19,9 +27,12 @@ jobs:
         run: composer install -o
       - name: Start Mysql
         run: sudo systemctl start mysql
-      - name: Create database
-        run: bin/console doctrine:database:create
+      - name: Verify MySQL connection
+        run: |
+          mysql --version
+          sudo apt-get install -y mysql-client
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -psecret -e "SHOW DATABASES"
       - name: Create database schema
-        run: bin/console doctrine:schema:create
+        run: bin/console doctrine:schema:create --env test
       - name: Run functional tests
         run: bin/phpunit

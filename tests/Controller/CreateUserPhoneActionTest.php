@@ -12,7 +12,7 @@ class CreateUserPhoneActionTest extends WebTestCase
         $client = static::createClient();
         $client->request(
             method: 'POST',
-            uri: '/users/2/phones',
+            uri: '/users/1/phones',
             content: json_encode([
                 'codigo_area' => 31,
                 'numero' => "3531-2990"
@@ -29,7 +29,7 @@ class CreateUserPhoneActionTest extends WebTestCase
         $client = static::createClient();
         $client->request(
             method: 'POST',
-            uri: '/users/2/phones',
+            uri: '/users/1/phones',
             content: json_encode([
                 'codigo_area' => 31
             ])
