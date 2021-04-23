@@ -12,8 +12,6 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_DATABASE: symfoni-user-api
-          MYSQL_USER: root
-          MYSQL_PASSWORD: root
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306
@@ -31,7 +29,7 @@ jobs:
         run: |
           mysql --version
           sudo apt-get install -y mysql-client
-          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -psecret -e "SHOW DATABASES"
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -proot -e "SHOW DATABASES"
       - name: Create database schema
         run: bin/console doctrine:schema:create --env test
       - name: Run functional tests
